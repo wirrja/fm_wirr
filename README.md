@@ -2,6 +2,7 @@
  - username: demo
  - password: Password_demo#
 
+<img src="https://media.giphy.com/media/932H5rY7tC3RwkZBS8/giphy.gif" width="720" />
 
 ### API:
 POST:
