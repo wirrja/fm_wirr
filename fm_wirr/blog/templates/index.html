@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Hello{% endblock %}
+
+{% block header %}
+<div class="jumbotron" id="jumbo">
+
+  <h1 class="jumbo">fm.wirr</h1>
+  <p class="jumbo">Ведем журнал прослушанной музыки</p>
+</div>
+
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+<div class="recent-header">
+    <h4>Недавно добавленные в базу альбомы</h4>
+    <hr />
+</div>
+<figure class="figure">
+<div class="row">
+{% for album in last_albums %}
+
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <figcaption class="figure-caption text-right fig-titles"><span class="fig-titles-artist">
+            <a href="{% url 'music_albums' album.name %}">
+            {{ album.name }}
+            </a>
+        </span></figcaption>
+        <figcaption class="figure-caption text-right fig-titles"><span class="fig-titles-album">{{ album.title }}</span></figcaption>
+        <figcaption class="figure-caption text-left fig-titles"><span class="fig-titles-datepost">{{ album.date_post }}</span></figcaption>
+        <img src="{{ MEDIA_URL }}{{ album.album_cover }}" class="figure-img img-fluid img-cover" alt="No Image">
+    </div>
+
+{% endfor %}
+</div>
+</figure>
+</div>
+
+{% endblock %}

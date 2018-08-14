@@ -1,0 +1,62 @@
+version: '2'
+services:
+  web:
+    build: ./fm_wirr
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./fm_wirr:/opt/app
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+      - redis
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+      ALLOWED_HOSTS: '*'
+      DJANGO_SECRET_KEY: = ${DJANGO_SECRET_KEY}
+
+  celery_worker:
+    build: ./fm_wirr
+    command: celery -A config worker -l info
+    volumes:
+      - ./fm_wirr:/opt/app
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - web
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+      ALLOWED_HOSTS: '*'
+      DJANGO_SECRET_KEY: = ${DJANGO_SECRET_KEY}
+
+  
+  celery_beat:
+    build: ./fm_wirr
+    command: celery -A config.celery:app beat -l debug -S django
+    volumes:
+      - ./fm_wirr:/opt/app
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - web
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+      ALLOWED_HOSTS: '*'
+      DJANGO_SECRET_KEY: = ${DJANGO_SECRET_KEY}
+
+      
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+  
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379

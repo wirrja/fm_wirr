@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}{{ artist }}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="btn btn-group btn-group-sm recent-menu">
+{#            <a href="{% url 'home' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-clock"> Recent</i></span>#}
+{#            </a>#}
+            <a href="{% url 'music_artists' %}" class="btn btn-secondary btn-recent" role="button">
+                <span class="count_top"><i class="fa fa-user"> Artists</i></span>
+            </a>
+{#            <a href="{% url 'home_songs' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-music"> Tracks</i></span>#}
+{#            </a>#}
+{#            <a href="{% url 'home_albums' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-compact-disc"> Albums</i></span>#}
+{#            </a>#}
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2>Альбомы исполнителя {{ artist }} <small></small></h2>
+            <hr />
+            <table class="table table-striped">
+            <tbody>
+                <tr>
+                        {% for album in music_albums %}
+                    <td>
+                        {% if album.album_thumb == 'No Image' %}
+                        <img src="{{ MEDIA_URL }}noimage_thumb.png">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}{{ album.album_thumb }}">
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ album.title }}
+                    </td>
+                    <td>
+                        {% for track in album.album_tracklist %}
+                            {{ forloop.counter }}. {{ track }}<br>
+                    {% endfor %}
+                    </td>
+                </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <figure class="figure">
+                <img src="{{ MEDIA_URL }}{{ artist.artist_photo }}" width="600"
+                    class="figure-img img-fluid rounded" alt="No Photo.">
+        <figcaption class="figure-caption">{{ artist.artist_description }}</figcaption>
+        </figure>
+
+    </div>
+    </div>
+
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    server_name wirr.pro;
+    return 301 https://$host$request_uri;
+
+}
+server {
+
+    listen 443 ssl;
+    server_name wirr.pro;
+    ssl_certificate      /etc/letsencrypt/live/wirr.pro/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/wirr.pro/privkey.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+
+    location / {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8000;
+    }
+    location /static/ {
+        root /opt/app/;
+        access_log off;
+    }
+    location /media/ {
+        root /opt/app/static/;
+        access_log off;
+    }
+}

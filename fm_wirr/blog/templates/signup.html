@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} Signup{% endblock title %}
+
+{% block content %}
+    <div class="container col-sm-12 col-md-6 col-lg-4 pt-lg-3">
+    <h4>Регистрация</h4>
+        <form class="form-horizontal" id="signup-form" role="form" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                    <div class="form-group">
+                    <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <div>
+                        <input type="{{ field.field.widget.input_type}}" class="form-control" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                    {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text|safe }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                    </div>
+                    </div>
+            {% endfor %}
+{#        <div class="form-group">#}
+         <label class="col-md-4 control-label" for="singlebutton"></label>
+{#            <div class="col-md-4 center-block">#}
+                <button type="submit" class="btn btn-primary">Регистрация</button>
+{#            </div>#}
+{#        </div>#}
+        </form>
+    </div>
+{% endblock %}

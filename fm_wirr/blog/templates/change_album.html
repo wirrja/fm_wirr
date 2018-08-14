@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load el_pagination_tags %}
+{% block title %}{{ username }}'s best albums{% endblock %}
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+{% block javascripts %}
+{{ block.super }}
+
+{% endblock javascripts %}
+{% block content %}
+
+<div class="container">
+    <h2>{{ artist }} - <small>{{ album }}</small></h2>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+            <hr />
+            <table class="table table-striped">
+            <tbody>
+                <tr>
+                        {% for album in change_album %}
+                    <td>
+                        {% if album.album_thumb == 'No Image' %}
+                        <img src="{{ MEDIA_URL }}noimage_thumb.png">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}{{ album.album_cover }}" height="50%">
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+                            </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+            <hr />
+            <table class="table table-striped">
+
+            <tbody>
+            <tr>
+                    <td>
+                        {% for track in album.album_tracklist %}
+                            {{ forloop.counter }}. {{ track }}<br>
+                    {% endfor %}
+                    </td>
+                </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+        </div>
+</div>
+</div>
+{% endblock content%}

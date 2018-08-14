@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Artists{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="btn btn-group btn-group-sm recent-menu">
+{#            <a href="{% url 'home' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-clock"> Recent</i></span>#}
+{#            </a>#}
+            <a href="{% url 'music_artists' %}" class="btn btn-secondary btn-recent" role="button">
+                <span class="count_top"><i class="fa fa-user"> Artists</i></span>
+            </a>
+{#            <a href="{% url 'home_songs' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-music"> Tracks</i></span>#}
+{#            </a>#}
+{#            <a href="{% url 'home_albums' username %}" class="btn btn-secondary btn-recent" role="button">#}
+{#                <span class="count_top"><i class="fa fa-compact-disc"> Albums</i></span>#}
+{#            </a>#}
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2>Каталог Артистов <small></small></h2>
+            <hr />
+            <table class="table table-striped table-responsive w-auto">
+            <tbody>
+                    {% for artist in music_artists %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'music_albums' artist.name %}">{{ artist.name }}</a></td>
+{#                    <td>{{ artist.count }}</td>#}
+                </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock content %}
