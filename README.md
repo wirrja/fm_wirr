@@ -2,7 +2,8 @@
  - username: demo
  - password: Password_demo#
 
-<img src="https://media.giphy.com/media/932H5rY7tC3RwkZBS8/giphy.gif" width="720" />
+[22mb] https://i.imgur.com/0zz7YHH.gif
+
 
 ### API:
 POST:
@@ -31,7 +32,7 @@ $ http -a username:password URL <<< json
     }
 
 #### fm_wirr/client
-contains examples how to scrobble
+contains scrobble examples
 
 ## Dev environment
 $ cd dir_which_contains_.git
