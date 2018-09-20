@@ -1,4 +1,4 @@
-### https://wirr.pro
+### https://wirr.ru
  - username: demo
  - password: Password_demo#
 
@@ -7,7 +7,7 @@
 
 ### API:
 POST:
-/api/v1/scrobble
+https://wirr.ru/api/v1/scrobble
 
 ##### httpie:
 
