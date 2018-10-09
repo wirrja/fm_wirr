@@ -30,7 +30,7 @@ $ http -a username:password URL <<< json
             "name": "Jay-Jay Johanson"
         }
     }
-![screenshot](https://i.imgur.com/O2CJZWz.jpg)
+
 
 #### fm_wirr/client
 contains scrobble examples
