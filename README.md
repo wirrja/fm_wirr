@@ -7,7 +7,7 @@
 
 ### API:
 POST:
-https://wirr.ru/api/v1/scrobble
+https://wirr.ru/api/v1/scrobbles
 
 ##### httpie:
 
